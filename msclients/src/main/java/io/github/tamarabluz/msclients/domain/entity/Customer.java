@@ -1,4 +1,4 @@
-package io.github.tamarabluz.msclients.entity;
+package io.github.tamarabluz.msclients.domain.entity;
 
 
 import lombok.Data;
