@@ -1,13 +1,14 @@
 spring:
   application:
-    name: mscclients
+    name: mscustomers
 
 server:
   port: 0
 
 eureka:
   client:
-    server-url:
-      defaultZone: hhtp://localhost:8761/eureka
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
   instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring-cloud.application.instance_id:${random.value}}

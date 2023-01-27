@@ -1,8 +1,8 @@
 package io.github.tamarabluz.msclients.application.controller;
 
 import io.github.tamarabluz.msclients.application.representation.CustomerSaveRequest;
-import io.github.tamarabluz.msclients.domain.entity.Customer;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,17 +10,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("customer")
+@RequestMapping("customers")
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerController {
 
     private final CustomerService service;
 
     @GetMapping
     public String status(){
+        log.info("Get customer microservice status");
         return "ok";
     }
 
+    @PostMapping
     public ResponseEntity save(@RequestBody CustomerSaveRequest request){
        var customer = request.toModel();
        service.save(customer);
