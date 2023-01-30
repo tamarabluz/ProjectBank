@@ -6,10 +6,9 @@ import io.github.tamarabluz.mscards.domain.Card;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,10 +22,17 @@ public class CardsController {
         return "ok";
     }
 
+    @PostMapping
     public ResponseEntity register(@RequestBody CardSaveRequest request){
         Card card = request.toModel();
         service.save(card);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping(params = "income")
+    public ResponseEntity<List<Card>> getCardIncomeUp(@RequestParam("income") Long income){
+        List<Card> list = service.getEqualLesserIncomeCard(income);
+        return ResponseEntity.ok(list);
 
     }
 }
