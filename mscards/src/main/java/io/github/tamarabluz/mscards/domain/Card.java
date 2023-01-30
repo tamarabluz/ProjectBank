@@ -18,13 +18,13 @@ public class Card {
     private String nome;
     @Enumerated(EnumType.STRING)
     private CardFlag flag;
-    private BigDecimal renda;
+    private BigDecimal income;
     private BigDecimal limitBasic;
 
-    public Card(String nome, CardFlag flag, BigDecimal renda, BigDecimal limitBasic) {
+    public Card(String nome, CardFlag flag, BigDecimal income, BigDecimal limitBasic) {
         this.nome = nome;
         this.flag = flag;
-        this.renda = renda;
+        this.income = income;
         this.limitBasic = limitBasic;
     }
 }
