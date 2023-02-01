@@ -1,8 +1,11 @@
 package io.github.tamarabluz.mscreditappraiser.application.controller;
 
+import io.github.tamarabluz.mscreditappraiser.application.exception.CustomerDataNotFoundException;
+import io.github.tamarabluz.mscreditappraiser.application.exception.MicroservicesCommunicationErrorException;
 import io.github.tamarabluz.mscreditappraiser.application.service.CreditAppraiserService;
 import io.github.tamarabluz.mscreditappraiser.domain.CustomerSituation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +25,15 @@ public class CreditAppraiserController {
     }
 
     @GetMapping(value = "customer-situation", params = "cpf")
-    public ResponseEntity<CustomerSituation> getCustomerSituation(@RequestParam("cpf") String cpf){
-        CustomerSituation customerSituation = creditAppraiserService.getCustomerSituation(cpf);
-        return ResponseEntity.ok(customerSituation);
+    public ResponseEntity getCustomerSituation(@RequestParam("cpf") String cpf){
+        try {
+            CustomerSituation customerSituation = creditAppraiserService.getCustomerSituation(cpf);
+            return ResponseEntity.ok(customerSituation);
+        } catch (CustomerDataNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (MicroservicesCommunicationErrorException e) {
+            return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
+        }
+
     }
 }
