@@ -2,10 +2,12 @@ package io.github.tamarabluz.mscreditappraiser.domain;
 
 import lombok.Data;
 
-@Data
-public class CustomerData {
+import java.math.BigDecimal;
 
+@Data
+public class Card {
     private Long id;
     private String name;
-    private Integer age;
+    private String flag;
+    private BigDecimal limitBasic;
 }

@@ -1,5 +1,6 @@
 package io.github.tamarabluz.mscreditappraiser.infra;
 
+import io.github.tamarabluz.mscreditappraiser.domain.Card;
 import io.github.tamarabluz.mscreditappraiser.domain.CustomerCard;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -12,4 +13,6 @@ import java.util.List;
 public interface CardsResourceCustomer {
     @GetMapping(params = "cpf")
     ResponseEntity<List<CustomerCard>> getCardsByCustomer(@RequestParam("cpf") String cpf);
+    @GetMapping(params = "income")
+    ResponseEntity<List<Card>> getCardIncomeUp(@RequestParam("income") Long income);
 }
